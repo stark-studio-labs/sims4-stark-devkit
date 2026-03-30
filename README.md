@@ -29,6 +29,8 @@
   - [`test`](#test)
 - [🔬 Development](#-development)
 - [📝 Notes](#-notes)
+- [⚖️ How It Compares](#️-how-it-compares)
+- [🗺️ Roadmap](#️-roadmap)
 - [🌐 Stark Labs Ecosystem](#-stark-labs-ecosystem)
 
 ---
@@ -220,6 +222,45 @@ PYTHONPATH=src python3 -m sims4_stark_devkit --help
 - The toolkit does not bundle third-party decompilers.
 - DBPF writing currently emits valid uncompressed or zlib-compressed resources using the Sims 4 DBPF 2.1 layout.
 - Internal Maxis string-table compression (`0xFFFF`) is detected but not rewritten by this version.
+
+---
+
+## ⚖️ How It Compares
+
+| Task | Manual Toolchain | sims4-stark-devkit |
+|------|------------------|--------------------|
+| Scaffold a new mod | Copy-paste boilerplate from old mods | `stark init my-mod` — typed template, ready in 5s |
+| Compile Python to .pyc | Set up Python 3.7 separately, run `compileall` manually | `stark build` — bundled Python 3.7, auto-compiles |
+| Package into .ts4script | Zip files manually, rename extension | `stark package` — handles structure and naming |
+| Package into .package | Use Sims 4 Studio GUI (no CLI) | `stark pack --tuning` — CLI-driven DBPF packaging |
+| Decompile existing mods | Hunt for decompyle3 / uncompyle6, run per-file | `stark decompile mod.ts4script` — batch decompile |
+| Hot reload during development | Restart game for every change | `stark dev` — file watcher, live reload |
+| Run tests | No standard test runner for Sims mods | `stark test` — pytest integration with game stubs |
+| Install to Mods folder | Drag-and-drop manually | `stark install` — direct push to detected Mods/ |
+| Game path detection | Hardcode or configure manually | Auto-detected on Windows and Mac |
+| Type stubs for autocomplete | None, or outdated community stubs | Bundled, patch-tracked EA stubs |
+
+> **Comparison:** Sims 4 Studio is excellent for asset editing (CAS, meshes, recolors) and we don't touch that. The DevKit is for script mod developers who want a proper CLI workflow.
+
+---
+
+## 🗺️ Roadmap
+
+| Feature | Status | Notes |
+|---------|--------|-------|
+| `stark init` — project scaffold | ✅ Shipped | Templates: basic, interaction, trait, career |
+| `stark build` — compile .py → .pyc | ✅ Shipped | Bundled Python 3.7 runtime |
+| `stark package` — create .ts4script | ✅ Shipped | Correct ZIP structure + extension |
+| `stark install` — push to Mods/ | ✅ Shipped | Auto-detects EA/The Sims 4/Mods path |
+| `stark decompile` — .ts4script → .py | ✅ Shipped | Uses decompyle3 with uncompyle6 fallback |
+| EA Python type stubs | ✅ Shipped | Enables IDE autocomplete |
+| `stark dev` — hot reload server | 🔨 In Progress | File watcher + live mod swap |
+| `stark test` — pytest integration | 🔨 In Progress | Mock game services for unit testing |
+| `stark pack --tuning` — .package CLI | 📋 Planned | DBPF v2.0 write support via S4TK |
+| `stark publish` — release packaging | 📋 Planned | Creates distributable zip with metadata |
+| `stark patch-check` — EA patch monitor | 📋 Planned | Warns when stubs may be outdated |
+| VS Code extension | 📋 Planned | DevKit commands in the editor palette |
+| GUI launcher | ❌ Out of Scope | CLI-first; use sims4-mod-builder for visual |
 
 ---
 
