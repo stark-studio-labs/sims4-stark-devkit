@@ -1,0 +1,43 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "sims4-stark-devkit"
+version = "0.1.0"
+description = "Modern Sims 4 developer toolkit for decompilation, DBPF package work, scaffolding, and compatibility checks."
+readme = "README.md"
+requires-python = ">=3.12"
+license = {text = "MIT"}
+authors = [
+  {name = "Stark Labs", email = "studio@starklabs.dev"}
+]
+keywords = ["sims4", "modding", "dbpf", "decompiler", "ts4script"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Environment :: Console",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.12",
+  "Topic :: Games/Entertainment",
+  "Topic :: Software Development :: Build Tools"
+]
+dependencies = []
+
+[project.optional-dependencies]
+decompilers = [
+  "decompyle3>=3.9.2",
+  "uncompyle6>=3.9.2"
+]
+dev = []
+
+[project.scripts]
+stark-devkit = "sims4_stark_devkit.cli:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
